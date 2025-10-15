@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Malaysia Population Density & Air Pollution Index in 2022",
+  "width": 800,
+  "height": 600,
+  "view": {"stroke": null},
+  "projection": {"type": "mercator","center": [110, 4],"scale": 2100},
+  "resolve": { "scale": { "color": "independent" } },
+
+  "params": [
+    {
+      "name": "apiRanges",
+      "value": ["0-30","31-45","46-60","60+"],
+      "bind": {
+        "input": "select",
+        "multiple": true,
+        "size": 4,
+        "name": "Air Pollution Index ranges: ",
+        "options": ["0-30","31-45","46-60","60+"]
+      }
+    }
+  ],
+
+  "layer": [
+    {
+      "name": "ocean",
+      "data": { "url": "../ne_10m_worldmap_states.json", "format": {"type": "topojson","feature": "ne_10m_ocean"} },
+      "mark": {"type": "geoshape", "fill": "#5fa2d6"}
+    },
+    {
+      "name": "graticules",
+      "data": { "url": "../ne_10m_worldmap_states.json", "format": {"type": "topojson","feature": "ne_10m_graticules_5"} },
+      "mark": {"type": "geoshape", "fill": null},
+      "encoding": { "stroke": {"value": "#66869b"}, "strokeWidth": {"value": 0.5}, "opacity": {"value": 0.8} }
+    },
+    {
+      "name": "other_countries_states",
+      "data": { "url": "../ne_10m_worldmap_states.json", "format": {"type": "topojson","feature": "ne_10m_admin_1_states_provinces"} },
+      "transform": [
+        { "calculate": "datum.properties && (datum.properties.admin ? datum.properties.admin : (datum.properties.ADMIN ? datum.properties.ADMIN : ''))", "as": "country_name" },
+        { "filter": "datum.country_name !== 'Malaysia' && datum.country_name !== ''" }
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": { "fill": {"value": "#dddddd"}, "stroke": {"value": "#999999"}, "strokeWidth": {"value": 0.3}, "opacity": {"value": 0.7} }
+    },
+    {
+      "name": "malaysia_states_density",
+      "data": { "url": "../ne_10m_worldmap_states.json", "format": {"type": "topojson","feature": "ne_10m_admin_1_states_provinces"} },
+      "transform": [
+        { "calculate": "datum.properties && (datum.properties.admin ? datum.properties.admin : (datum.properties.ADMIN ? datum.properties.ADMIN : ''))", "as": "country_name" },
+        { "filter": "datum.country_name === 'Malaysia'" },
+        { "calculate": "datum.properties && (datum.properties.name ? datum.properties.name : (datum.properties.NAME_1 ? datum.properties.NAME_1 : ''))", "as": "state_name" },
+        { "lookup": "state_name", "from": { "data": { "url": "../Dataset/population_state_2022_cleaned.csv", "format": {"type": "csv"} }, "key": "state", "fields": ["population_000s"] } },
+        { "lookup": "state_name", "from": { "data": { "url": "../Dataset/state_area_km2.csv", "format": {"type": "csv"} }, "key": "state", "fields": ["area_km2"] } },
+        { "calculate": "toNumber(datum.population_000s) * 1000", "as": "population" },
+        { "calculate": "toNumber(datum.area_km2)", "as": "area_km2_num" },
+        { "calculate": "datum.area_km2_num > 0 ? datum.population / datum.area_km2_num : null", "as": "pop_density" },
+        { "calculate": "isValid(datum.pop_density) ? (datum.pop_density <= 50 ? '0-50' : datum.pop_density <= 200 ? '51-200' : datum.pop_density <= 300 ? '201-300' : '300+') : null", "as": "density_class" }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "isValid(datum.density_class)",
+            "field": "density_class",
+            "type": "nominal",
+            "scale": { "domain": ["0-50","51-200","201-300","300+"], "range":  ["#ffffcc","#fed976","#fd8d3c","#bd0026"] },
+            "title": "Population density (people/km²)"
+          },
+          "value": "#f1f1f1"
+        },
+        "tooltip": [
+          {"field": "state_name", "title": "State"},
+          {"field": "population", "type": "quantitative", "title": "Population", "format": ","},
+          {"field": "area_km2_num", "type": "quantitative", "title": "Area (km²)", "format": ",.0f"},
+          {"field": "pop_density", "type": "quantitative", "title": "Density (per km²)", "format": ",.1f"},
+          {"field": "density_class", "type": "nominal", "title": "Class"}
+        ]
+      }
+    },
+
+    {
+      "name": "district_spikes_triangles",
+      "data": { "url": "../Dataset/APIMS_2022_cleaned.csv", "format": {"type": "csv"} },
+      "transform": [
+        { "filter": "isValid(datum.API)" },
+        {
+          "calculate":
+            "toNumber(datum.API) <= 30 ? '0-30' : toNumber(datum.API) <= 45 ? '31-45' : toNumber(datum.API) <= 60 ? '46-60' : '60+'",
+          "as": "api_bucket"
+        },
+        {
+          "filter": "indexof(apiRanges, datum.api_bucket) >= 0"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "shape": "triangle-up",
+        "filled": true,
+        "opacity": 0.95,
+        "stroke": "#ffffff",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "size": {
+          "field": "API",
+          "type": "quantitative",
+          "scale": { "range": [40, 700] },
+          "legend": null,
+          "title": null
+        },
+        "color": {
+          "field": "api_bucket",
+          "type": "nominal",
+          "title": "Air Pollution Index range",
+          "sort": ["0-30", "31-45", "46-60", "60+"],
+          "scale": {
+            "domain": ["0-30", "31-45", "46-60", "60+"],
+            "range":  ["#c7e9c0", "#a1d99b", "#74c476", "#238b45"]
+          },
+          "legend": { "symbolType": "triangle-up", "orient": "right" }
+        },
+        "order": { "field": "API", "type": "quantitative", "sort": "descending" },
+        "tooltip": [
+          {"field": "district", "title": "District"},
+          {"field": "API", "title": "API", "format": ".0f"},
+          {"field": "api_bucket", "title": "API bucket"},
+          {"field": "time", "title": "Time"}
+        ]
+      }
+    }
+  ]
+}

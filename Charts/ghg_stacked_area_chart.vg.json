@@ -1,0 +1,99 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+  "text": "Annual Greenhouse Gas Emissions in Malaysia (2014–2019)",
+  "offset": 8,
+  "fontSize": 19,        
+  "fontWeight": "bold",    
+  "anchor": "middle"       
+  },
+  "data": { "url": "../Dataset/ghg_emissions.csv" },
+
+  "width": 1100,
+  "height": 500,
+  "padding": { "top": 10, "right": 0, "bottom": 0, "left": 10 },
+  "transform": [
+    { "calculate": "year(toDate(datum.date))", "as": "year_num" },
+    { "filter": "datum.source != 'total' && datum.source != 'net'" },
+
+    {
+      "lookup": "source",
+      "from": {
+        "data": {
+          "values": [
+            { "source": "energy",               "short": "Energy",                 "full": "Energy" },
+            { "source": "industrial_processes", "short": "Industrial Processes",   "full": "Industrial Processes" },
+            { "source": "agriculture",          "short": "Agriculture",            "full": "Agriculture" },
+            { "source": "waste",                "short": "Waste",                  "full": "Waste" },
+            { "source": "lulucf",               "short": "Land use & forestry",    "full": "Land Use, Land-Use Change and Forestry (LULUCF)" }
+          ]
+        },
+        "key": "source",
+        "fields": ["short", "full"]
+      }
+    },
+    { "calculate": "datum.short", "as": "source_short" },
+    { "calculate": "datum.full",  "as": "source_full" },
+
+    { "filter": "datum.year_num <= 2019" },
+
+    {
+      "joinaggregate": [
+        { "op": "sum", "field": "emissions", "as": "total_sum_sector" }
+      ],
+      "groupby": ["source"]
+    },
+    { "calculate": "-datum.total_sum_sector", "as": "stack_rank" }
+  ],
+
+  "mark": { "type": "area", "interpolate": "monotone" },
+
+  "encoding": {
+    "x": {
+      "field": "year_num",
+      "type": "quantitative",
+      "title": "Year",
+      "scale": { "domain": [2014, 2019], "nice": false },
+      "axis": { "tickMinStep": 1, "format": "d", "labelOverlap": "greedy" }
+    },
+
+    "y": {
+      "field": "emissions",
+      "type": "quantitative",
+      "stack": "zero",
+      "title": "Emissions (Gg CO\u2082e)",
+      "axis": { "format": ",.0f" }
+    },
+
+    "order": { "field": "stack_rank", "type": "quantitative" },
+
+    "color": {
+      "field": "source_short",
+      "type": "nominal",
+      "title": "Sector",
+      "scale": {
+        "domain": [
+          "Energy",
+          "Industrial Processes",
+          "Agriculture",
+          "Waste",
+          "Land use & forestry"
+        ],  
+        "range": ["#1f77b4", "#9467bd", "#2ca02c", "#ff7f0e", "#8c564b"]
+      },
+      "legend": {
+        "labelFontSize": 13,
+        "titleFontSize": 15,
+        "symbolSize": 220,
+        "symbolType": "square",
+        "padding": 10
+      }
+    },
+
+    "tooltip": [
+      { "field": "year_num", "type": "quantitative", "title": "Year", "format": "d" },
+      { "field": "source_full", "title": "Sector" },
+      { "field": "emissions", "type": "quantitative", "title": "Emissions (Gg CO\u2082e)", "format": ",.0f" }
+    ]
+  }
+}

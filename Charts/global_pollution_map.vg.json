@@ -1,0 +1,122 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Mean Air Quality Index across countries (2022)",
+    "offset": 8,
+    "fontSize": 21,        
+    "fontWeight": "bold",    
+    "anchor": "middle"       
+  },
+  "width": 1200,
+  "height": 720,
+  "view": {"stroke": null},
+  "projection": {"type": "equalEarth"}, 
+  "bounds": "flush",
+
+  "layer": [
+    {
+      "name": "ocean",
+      "data": {
+        "url": "../ne_50m_worldmap_countries.json",
+        "format": {"type": "topojson", "feature": "ne_50m_ocean"}
+      },
+      "mark": {"type": "geoshape"},
+      "encoding": {"fill": {"value": "#7cb9e8"}}
+    },
+    {
+      "name": "countries_choropleth",
+      "data": {
+        "url": "../ne_50m_worldmap_countries.json",
+        "format": {"type": "topojson", "feature": "ne_50m_admin_0_countries"}
+      },
+      "transform": [
+        {"calculate": "datum.properties.ADMIN || datum.properties.admin", "as": "ADMIN"},
+        {"calculate": "datum.properties.ADM0_A3 || datum.properties.adm0_a3", "as": "A3"},
+        {"filter": "!(datum.ADMIN=='Antarctica' || datum.A3=='ATA')"},
+        {
+          "lookup": "ADMIN",
+          "from": {
+            "data": {"url": "../Dataset/global_air_pollution_cleaned.csv", "format": {"type": "csv"}},
+            "key": "Country",
+            "fields": ["Mean Overall AQI"]
+          }
+        },
+        {"calculate": "toNumber(datum['Mean Overall AQI'])", "as": "aqi_mean"},
+        {
+          "calculate": "isValid(datum.aqi_mean) ? (datum.aqi_mean <= 50 ? 'Good (0-50)' : datum.aqi_mean <= 100 ? 'Moderate (51-100)' : datum.aqi_mean <= 150 ? 'Unhealthy-Sensitive People (101-150)' : 'Unhealthy (151-200)') : null",
+          "as": "aqi_level_label"
+        },
+        {"calculate": "isValid(datum.aqi_mean) ? format(datum.aqi_mean, '.1f') : 'No data'", "as": "aqi_mean_str"},
+        {"calculate": "isValid(datum.aqi_level_label) ? datum.aqi_level_label : 'No data'", "as": "aqi_level_str"}
+      ],
+
+      "params": [
+        {
+          "name": "countries_highlight",
+          "select": {
+            "type": "point",
+            "fields": ["aqi_level_label"],
+            "toggle": "true"
+          },
+          "bind": "legend"
+        }
+      ],
+
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "isValid(datum.aqi_level_label)",
+            "field": "aqi_level_label",
+            "type": "nominal",
+            "title": "Air Pollution Level",
+            "scale": {
+              "domain": [
+                "Good (0-50)",
+                "Moderate (51-100)",
+                "Unhealthy-Sensitive People (101-150)",
+                "Unhealthy (151-200)"
+              ],
+              "range": ["#fddbc7", "#f4a582", "#d6604d", "#67001f"]
+            },
+            "legend": {
+              "labelFontSize": 13,
+              "titleFontSize": 15,
+              "orient": "right",
+              "offset": 12,
+              "labelLimit": 320,
+              "symbolType": "square",
+              "symbolSize": 120
+            }
+          },
+          "value": "#8f8f8f"
+        },
+        "opacity": {
+          "condition": {"param": "countries_highlight", "value": 0.6},
+          "value": 0.1
+        },
+        "stroke": {"value": "#000000"},
+        "strokeWidth": {"value": 0.4},
+        "tooltip": [
+          {"field": "ADMIN", "title": "Country"},
+          {"field": "aqi_mean_str", "title": "Mean AQI"},
+          {"field": "aqi_level_str", "title": "Level"}
+        ]
+      }
+    },
+    {
+      "name": "graticules",
+      "data": {
+        "url": "../ne_50m_worldmap_countries.json",
+        "format": {"type": "topojson", "feature": "ne_50m_graticules_15"}
+      },
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "fill": {"value": null},
+        "stroke": {"value": "#8ea3b3"},
+        "strokeWidth": {"value": 1.0},
+        "opacity": {"value": 0.8}
+      }
+    }
+  ]
+}

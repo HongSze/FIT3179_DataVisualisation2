@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+  "text": "Air Pollutants in Malaysia (2018–2023)",
+  "subtitle": "PM (µg/m³) on left • Gases (ppm) on right",
+  "offset": 8,
+  "fontSize": 19,        
+  "fontWeight": "bold",    
+  "anchor": "middle"       
+  },
+  "data": { "url": "../Dataset/air_pollution.csv" },
+  "width": 1100,
+  "height": 450,
+  "padding": { "top": 0, "right": 0, "bottom": 0, "left": 10 },
+  "params": [
+    { "name": "show_PM25", "value": true, "bind": { "input": "checkbox", "name": " PM 2.5  " } },
+    { "name": "show_PM10", "value": true, "bind": { "input": "checkbox", "name": " PM 10  " } },
+    { "name": "show_CO",   "value": true, "bind": { "input": "checkbox", "name": " CO  " } },
+    { "name": "show_NO2",  "value": true, "bind": { "input": "checkbox", "name": " NO₂  " } },
+    { "name": "show_SO2",  "value": true, "bind": { "input": "checkbox", "name": " SO₂  " } },
+    { "name": "show_O3",   "value": true, "bind": { "input": "checkbox", "name": " O₃  " } }
+  ],
+
+  "encoding": {
+    "x": { "field": "date", "type": "temporal", "timeUnit": "yearmonth", "title": "Month" },
+    "color": {
+      "field": "pollutant",
+      "type": "nominal",
+      "title": "Pollutant",
+      "scale": {
+        "domain": ["PM 2.5","PM 10","CO","NO2","SO2","O3"],
+        "range":  ["#d62728","#ff7f0e","#1f77b4","#9467bd","#2ca02c","#17becf"]
+      },
+      "legend": {
+        "labelFontSize": 13,
+        "titleFontSize": 15,
+        "symbolSize": 100
+      }
+    }
+  },
+
+  "layer": [
+    {
+      "transform": [
+        { "filter": "datum.pollutant == 'PM 2.5' || datum.pollutant == 'PM 10'" },
+        { "calculate": "toNumber(datum.concentration)", "as": "conc_num" },
+        { "filter": "isValid(datum.conc_num)" },
+        { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
+        { "filter": "(datum.pollutant == 'PM 2.5' && show_PM25) || (datum.pollutant == 'PM 10' && show_PM10)" }
+      ],
+      "mark": { "type": "line", "point": true, "strokeWidth": 2, "interpolate": "monotone" },
+      "encoding": {
+        "y": {
+          "field": "conc_num",
+          "type": "quantitative",
+          "title": "Concentration (µg/m³)",
+          "axis": { "grid": true }
+        },
+        "tooltip": [
+          { "field": "pollutant", "title": "Pollutant" },
+          { "field": "date", "type": "temporal", "timeUnit": "yearmonth", "title": "Month" },
+          { "field": "conc_num", "type": "quantitative", "title": "Concentration (µg/m³)", "format": ".1f" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.pollutant == 'CO' || datum.pollutant == 'NO2' || datum.pollutant == 'SO2' || datum.pollutant == 'O3'" },
+        { "calculate": "toNumber(datum.concentration)", "as": "conc_num" },
+        { "filter": "isValid(datum.conc_num)" },
+        { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
+        { "filter": "(datum.pollutant == 'CO' && show_CO) || (datum.pollutant == 'NO2' && show_NO2) || (datum.pollutant == 'SO2' && show_SO2) || (datum.pollutant == 'O3' && show_O3)" }
+      ],
+      "mark": { "type": "line", "point": true, "strokeDash": [4,3], "strokeWidth": 2, "interpolate": "monotone" },
+      "encoding": {
+        "y": {
+          "field": "conc_num",
+          "type": "quantitative",
+          "title": "Concentration (ppm)",
+          "axis": { "orient": "right", "grid": false }
+        },
+        "tooltip": [
+          { "field": "pollutant", "title": "Pollutant" },
+          { "field": "date", "type": "temporal", "timeUnit": "yearmonth", "title": "Month" },
+          { "field": "conc_num", "type": "quantitative", "title": "Concentration (ppm)", "format": ".3~g" }
+        ]
+      }
+    }
+  ],
+
+  "resolve": { "scale": { "y": "independent", "color": "shared" } }
+}
