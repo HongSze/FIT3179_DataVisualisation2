@@ -7,7 +7,7 @@
     "fontWeight": "bold",
     "anchor": "middle"
   },
-  "data": { "url": "../Dataset/AirQuality_Malaysia_cleaned.csv", "format": { "type": "csv" } },
+  "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/AirQuality_Malaysia_cleaned.csv", "format": { "type": "csv" } },
   "width": 970,
   "height": 500,
 
