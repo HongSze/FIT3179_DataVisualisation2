@@ -8,7 +8,7 @@
   "fontWeight": "bold",    
   "anchor": "middle"       
   },
-  "data": { "url": "../Dataset/air_pollution.csv" },
+  "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/air_pollution.csv" },
   "width": 1100,
   "height": 450,
   "padding": { "top": 0, "right": 0, "bottom": 0, "left": 10 },
