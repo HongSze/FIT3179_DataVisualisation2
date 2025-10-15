@@ -7,7 +7,7 @@
   "fontWeight": "bold",    
   "anchor": "middle"       
   },
-  "data": { "url": "../Dataset/ghg_emissions.csv" },
+  "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/ghg_emissions.csv" },
 
   "width": 1100,
   "height": 500,
