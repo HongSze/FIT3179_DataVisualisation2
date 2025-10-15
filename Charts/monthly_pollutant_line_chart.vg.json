@@ -1,12 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-  "text": "Air Pollutants in Malaysia (2018–2023)",
-  "subtitle": "PM (µg/m³) on left • Gases (ppm) on right",
-  "offset": 8,
-  "fontSize": 19,        
-  "fontWeight": "bold",    
-  "anchor": "middle"       
+    "text": "Air Pollutants in Malaysia (2018–2023)",
+    "subtitle": "PM (µg/m³) on left • Gases (ppm) on right",
+    "offset": 8,
+    "fontSize": 19,
+    "fontWeight": "bold",
+    "anchor": "middle"
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/air_pollution.csv" },
   "width": 1100,
@@ -85,7 +85,29 @@
           { "field": "conc_num", "type": "quantitative", "title": "Concentration (ppm)", "format": ".3~g" }
         ]
       }
+    },
+
+  {
+    "name": "annotationText",
+    "data": { "values": [
+      { "note": "In September 2019, transboundary haze from \nIndonesian forest and peat fires blanketed Malaysia, \nspiking both PM and gaseous pollutants." }
+    ]},
+    "mark": {
+      "type": "text",
+      "fontSize": 13,
+      "align": "left",
+      "baseline": "top",
+      "lineBreak": "\n",
+      "color": "black"          
+    },
+    "encoding": {
+      "x": { "value": 430 }, 
+      "y": { "value": 48 },          
+      "text": { "field": "note" },
+      "color": { "value": "black" }   
     }
+  }
+
   ],
 
   "resolve": { "scale": { "y": "independent", "color": "shared" } }

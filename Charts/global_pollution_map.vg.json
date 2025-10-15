@@ -117,6 +117,27 @@
         "strokeWidth": {"value": 1.0},
         "opacity": {"value": 0.8}
       }
+    },
+
+    {
+      "name": "annotationText",
+      "data": { "values": [
+        { "note": "Malaysia ranks 53rd in terms \nof worst air quality compared to \nthe other 176 countries." }
+      ]},
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "\n",
+        "color": "black"          
+      },
+      "encoding": {
+        "x": { "value": 780 }, 
+        "y": { "value": 400 },          
+        "text": { "field": "note" },
+        "color": { "value": "black" }   
+      }
     }
   ]
 }
