@@ -6,7 +6,7 @@
     "anchor": "middle"               
   },
   "autosize": {"type": "fit", "contains": "padding", "resize": true},
-  "data": {"url": "../Dataset/1998 2020 Annual Maximum and Minimum Air Pollutant.csv", "format": {"type": "csv"}},
+  "data": {"url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/1998%202020%20Annual%20Maximum%20and%20Minimum%20Air%20Pollutant.csv", "format": {"type": "csv"}},
   "config": {"view": {"stroke": null}},
   "transform": [
     {"calculate": "trim(datum['Selected Stations'])", "as": "station"},
