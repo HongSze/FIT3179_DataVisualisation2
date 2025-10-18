@@ -1,27 +1,117 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Malaysia’s Air & Emissions: Global Context, Local Trends</title>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  </head>
-  <body>
-    <h1>Malaysia’s Air & Emissions: Global Context, Local Trends</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malaysia’s Air & Emissions: Global Context, Local Trends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-    <div id="map"></div>
+  <style>
+    :root { --page-width: 330mm; }
 
+    html, body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height: 1.5;
+      background: #fff;
+      color: #0f172a;
+    }
 
-    <div id="gas"></div>
+    .page {
+      width: var(--page-width);
+      max-width: calc(100vw - 32px);
+      margin: 24px auto;
+      padding: 12px 16px;
+      border-left: 1px solid #b9c0c7;
+      border-right: 1px solid #b9c0c7;
+      background: #d5e6eb;
+    }
 
+    h1 { text-align: center; margin: 0 0 12px; }
 
-    <div id="ghg"></div>
-    <div id="global"></div>
+    .viz { width: 100%; margin-bottom: 20px; }
 
-    <div id="minmax"></div>
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
 
-    <script src="vega_lite_vis.js"></script>
-  </body>
-  </html>
-    
+    @media (max-width: 1100px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    /* === Double-line section divider ============================== */
+    .double-rule {
+      /* customize per instance via inline CSS variables if you want */
+      --line1: #0f172a;     /* top line color */
+      --line2: #11aedd;     /* bottom line color */
+      --thick: 3px;         /* line thickness */
+      --vspace: 12px;       /* space between lines & text */
+      position: relative;
+      margin: 12px 0 18px;  /* spacing around the divider */
+      text-align: center;
+    }
+    .double-rule::before,
+    .double-rule::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      height: var(--thick);
+    }
+    .double-rule::before { top: 0;    background: var(--line1); }
+    .double-rule::after  { bottom: 0; background: var(--line2); }
+    .double-rule span {
+      display: inline-block;
+      padding: var(--vspace) 16px;
+      font-weight: 700;
+      font-size: 18px;
+      background: #d5e6eb; /* match the .page background so text sits “between” lines */
+      border-radius: 8px;
+    }
+    /* Optionally make the span auto-fit on small screens */
+    @media (max-width: 600px) {
+      .double-rule span { font-size: 16px; padding: var(--vspace) 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Malaysia’s Air &amp; Emissions: Global Context, Local Trends</h1>
+    <p style="text-align:center;">CHANGE</p>
+    <div class="double-rule" style="--line1:#0f172a; --line2:#0f172a;">
+      <span style="font-size:25px">Mean Air Quality Index across the world in 2022</span>
+    </div>
+    <div id="map" class="viz"></div>
+
+    <!-- Divider between charts (colors can be customized per instance) -->
+    <div class="double-rule" style="--line1:#0f172a; --line2:#0f172a;">
+      <span style="font-size:25px">Air Pollutants in Malaysia (2018–2023)</span>
+    </div>
+
+    <div id="gas" class="viz"></div>
+
+    <div class="double-rule" style="--line1:#0f172a; --line2:#0f172a;">
+      <span style="font-size:25px">Annual Greenhouse Gas Emissions in Malaysia (2014–2019)</span>
+    </div>
+
+    <div id="ghg" class="viz"></div>
+
+    <div class="double-rule" style="--line1:#0f172a; --line2:#0f172a;">
+      <span style="font-size:25px">Local Air Pollutions Views</span>
+    </div>
+
+    <section class="two-col">
+      <div id="global" class="viz"></div>
+      <div id="minmax" class="viz"></div>
+    </section>
+  </main>
+
+  <script src="vega_lite_vis.js"></script>
+</body>
+</html>

@@ -2,9 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": { 
     "text": "Annual Min & Max Air Pollutant Index (1998–2020)",
-    "fontSize": 14,
-    "anchor": "middle"               
+    "fontSize": 15.5,
+    "anchor": "middle"
   },
+  "background": "#d5e6eb",
   "autosize": {"type": "fit", "contains": "padding", "resize": true},
   "data": {"url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/1998%202020%20Annual%20Maximum%20and%20Minimum%20Air%20Pollutant.csv", "format": {"type": "csv"}},
   "config": {"view": {"stroke": null}},
@@ -15,12 +16,12 @@
     {"filter": "isValid(datum.max_v) && isValid(datum.min_v)"},
     {"calculate": "datum.max_v - datum.min_v", "as": "range_v"}
   ],
-
   "vconcat": [
     {
       "hconcat": [
         {
-          "width": 145, "height": 75,
+          "width": 120,
+          "height": 70,
           "title": { "text": "Bandaraya Melaka, Melaka", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Bandaraya Melaka, Melaka'"}],
           "layer": [
@@ -50,7 +51,7 @@
           ]
         },
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Cheras, Kuala Lumpur", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Cheras, Kuala Lumpur'"}],
           "layer": [
@@ -81,11 +82,10 @@
         }
       ]
     },
-
     {
       "hconcat": [
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Kota Kinabalu, Sabah", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Kota Kinabalu, Sabah'"}],
           "layer": [
@@ -115,7 +115,7 @@
           ]
         },
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Kuching, Sarawak", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Kuching, Sarawak'"}],
           "layer": [
@@ -146,11 +146,10 @@
         }
       ]
     },
-
     {
       "hconcat": [
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Larkin, Johor Bahru", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Larkin, Johor Bahru'"}],
           "layer": [
@@ -180,7 +179,7 @@
           ]
         },
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Miri, Sarawak", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Miri, Sarawak'"}],
           "layer": [
@@ -211,11 +210,10 @@
         }
       ]
     },
-
     {
       "hconcat": [
         {
-          "width": 145, "height": 75,
+          "width": 120, "height": 70,
           "title": { "text": "Seberang Jaya, Pulau Pinang", "fontSize": 12, "offset": 4 },
           "transform": [{"filter": "datum.station === 'Seberang Jaya, Pulau Pinang'"}],
           "layer": [
@@ -245,10 +243,10 @@
           ]
         },
         {
-          "width": 14, "height": 75,
+          "width": 14, "height": 70,
           "data": {"values": [{}]},
           "mark": {"type": "rect", "opacity": 0},
-          "title": "" 
+          "title": ""
         }
       ]
     }

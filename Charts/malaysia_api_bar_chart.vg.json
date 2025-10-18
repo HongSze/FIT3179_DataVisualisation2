@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Air Pollution Index in Malaysia's District (2023)",
+    "text": "Top 20 Most Air Polluted Districts in 2023",
     "offset": 8,
     "fontSize": 19,
     "fontWeight": "bold",
@@ -11,17 +11,10 @@
     "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/AirQuality_Malaysia_cleaned.csv",
     "format": { "type": "csv" }
   },
-  "width": 970,
+  "width": 770,
   "height": 500,
-  "padding": { "top": 20, "right": 15, "bottom": 0, "left": 10 },
-
-  "params": [
-    {
-      "name": "topN",
-      "value": 20,
-      "bind": { "input": "range", "min": 5, "max": 63, "step": 1, "name": "Top Number: " }
-    }
-  ],
+  "background": "#d5e6eb",
+  "padding": { "top": 5, "right": 0, "bottom": 5, "left": 0 },
 
   "layer": [
     {
@@ -30,7 +23,7 @@
         { "filter": "isValid(datum.api_2023)" },
         { "filter": "!datum.Country || lower(datum.Country) == 'malaysia'" },
         { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "api_2023", "order": "descending" }] },
-        { "filter": "datum.r <= topN" }
+        { "filter": "datum.r <= 20" }
       ],
       "mark": { "type": "bar", "color": "#11aedd" },
       "encoding": {
@@ -55,19 +48,17 @@
       "mark": {
         "type": "text",
         "fontSize": 13,
-        "align": "right",       
+        "align": "right",
         "baseline": "bottom",
         "lineBreak": "\n",
         "color": "black"
       },
       "encoding": {
-        "x": { "value": 890},  
-        "y": { "value": 375 },  
+        "x": { "value": 720 },
+        "y": { "value": 375 },
         "text": { "field": "note" },
         "color": { "value": "black" }
       }
     }
   ]
 }
-
-

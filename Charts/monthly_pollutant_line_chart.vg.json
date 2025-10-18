@@ -1,24 +1,28 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Air Pollutants in Malaysia (2018–2023)",
-    "subtitle": "PM (µg/m³) on left • Gases (ppm) on right",
+    "text": "PM (µg/m³) on left • Gases (ppm) on right",
     "offset": 8,
-    "fontSize": 19,
+    "fontSize": 16,
     "fontWeight": "bold",
     "anchor": "middle"
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/air_pollution.csv" },
-  "width": 1100,
+  "width": 1090,
   "height": 450,
-  "padding": { "top": 0, "right": 0, "bottom": 0, "left": 10 },
+  "background": "#d5e6eb",
+  "padding": { "top": 0, "right": 5, "bottom": 5, "left": 0 },
+
   "params": [
-    { "name": "show_PM25", "value": true, "bind": { "input": "checkbox", "name": " PM 2.5  " } },
-    { "name": "show_PM10", "value": true, "bind": { "input": "checkbox", "name": " PM 10  " } },
-    { "name": "show_CO",   "value": true, "bind": { "input": "checkbox", "name": " CO  " } },
-    { "name": "show_NO2",  "value": true, "bind": { "input": "checkbox", "name": " NO₂  " } },
-    { "name": "show_SO2",  "value": true, "bind": { "input": "checkbox", "name": " SO₂  " } },
-    { "name": "show_O3",   "value": true, "bind": { "input": "checkbox", "name": " O₃  " } }
+    {
+      "name": "pollutantSelect",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": " Pollutant ",
+        "options": ["All","PM 2.5","PM 10","CO","NO2","SO2","O3"]
+      }
+    }
   ],
 
   "encoding": {
@@ -46,7 +50,7 @@
         { "calculate": "toNumber(datum.concentration)", "as": "conc_num" },
         { "filter": "isValid(datum.conc_num)" },
         { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
-        { "filter": "(datum.pollutant == 'PM 2.5' && show_PM25) || (datum.pollutant == 'PM 10' && show_PM10)" }
+        { "filter": "pollutantSelect == 'All' || datum.pollutant == pollutantSelect" }
       ],
       "mark": { "type": "line", "point": true, "strokeWidth": 2, "interpolate": "monotone" },
       "encoding": {
@@ -69,7 +73,7 @@
         { "calculate": "toNumber(datum.concentration)", "as": "conc_num" },
         { "filter": "isValid(datum.conc_num)" },
         { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
-        { "filter": "(datum.pollutant == 'CO' && show_CO) || (datum.pollutant == 'NO2' && show_NO2) || (datum.pollutant == 'SO2' && show_SO2) || (datum.pollutant == 'O3' && show_O3)" }
+        { "filter": "pollutantSelect == 'All' || datum.pollutant == pollutantSelect" }
       ],
       "mark": { "type": "line", "point": true, "strokeDash": [4,3], "strokeWidth": 2, "interpolate": "monotone" },
       "encoding": {
@@ -86,28 +90,26 @@
         ]
       }
     },
-
-  {
-    "name": "annotationText",
-    "data": { "values": [
-      { "note": "In September 2019, transboundary haze from \nIndonesian forest and peat fires blanketed Malaysia, \nspiking both PM and gaseous pollutants." }
-    ]},
-    "mark": {
-      "type": "text",
-      "fontSize": 13,
-      "align": "left",
-      "baseline": "top",
-      "lineBreak": "\n",
-      "color": "black"          
-    },
-    "encoding": {
-      "x": { "value": 430 }, 
-      "y": { "value": 48 },          
-      "text": { "field": "note" },
-      "color": { "value": "black" }   
+    {
+      "name": "annotationText",
+      "data": { "values": [
+        { "note": "In September 2019, transboundary haze from \nIndonesian forest and peat fires blanketed Malaysia, \nspiking both PM and gaseous pollutants." }
+      ]},
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "\n",
+        "color": "black"
+      },
+      "encoding": {
+        "x": { "value": 430 },
+        "y": { "value": 48 },
+        "text": { "field": "note" },
+        "color": { "value": "black" }
+      }
     }
-  }
-
   ],
 
   "resolve": { "scale": { "y": "independent", "color": "shared" } }

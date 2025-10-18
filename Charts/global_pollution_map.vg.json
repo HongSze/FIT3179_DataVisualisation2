@@ -1,18 +1,18 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Mean Air Quality Index across countries (2022)",
     "offset": 8,
-    "fontSize": 21,        
-    "fontWeight": "bold",    
-    "anchor": "middle"       
+    "fontSize": 21,
+    "fontWeight": "bold",
+    "anchor": "middle"
   },
-  "width": 1200,
+  "width": 1250,
   "height": 720,
+  "background": "#d5e6eb",
+  "padding": {"left": 0, "right": 0, "top": 0, "bottom": 0},
   "view": {"stroke": null},
-  "projection": {"type": "equalEarth"}, 
+  "projection": { "type": "equalEarth", "scale": 240 },
   "bounds": "flush",
-
   "layer": [
     {
       "name": "ocean",
@@ -36,7 +36,10 @@
         {
           "lookup": "ADMIN",
           "from": {
-            "data": {"url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/global_air_pollution_cleaned.csv", "format": {"type": "csv"}},
+            "data": {
+              "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/global_air_pollution_cleaned.csv",
+              "format": {"type": "csv"}
+            },
             "key": "Country",
             "fields": ["Mean Overall AQI"]
           }
@@ -49,19 +52,13 @@
         {"calculate": "isValid(datum.aqi_mean) ? format(datum.aqi_mean, '.1f') : 'No data'", "as": "aqi_mean_str"},
         {"calculate": "isValid(datum.aqi_level_label) ? datum.aqi_level_label : 'No data'", "as": "aqi_level_str"}
       ],
-
       "params": [
         {
           "name": "countries_highlight",
-          "select": {
-            "type": "point",
-            "fields": ["aqi_level_label"],
-            "toggle": "true"
-          },
+          "select": {"type": "point", "fields": ["aqi_level_label"], "toggle": "true"},
           "bind": "legend"
         }
       ],
-
       "mark": {"type": "geoshape"},
       "encoding": {
         "color": {
@@ -69,32 +66,31 @@
             "test": "isValid(datum.aqi_level_label)",
             "field": "aqi_level_label",
             "type": "nominal",
-            "title": "Air Pollution Level",
+            "title": "Air Pollution Level (Click to filter)",
             "scale": {
-              "domain": [
-                "Good (0-50)",
-                "Moderate (51-100)",
-                "Unhealthy-Sensitive People (101-150)",
-                "Unhealthy (151-200)"
-              ],
+              "domain": ["Good (0-50)", "Moderate (51-100)", "Unhealthy-Sensitive People (101-150)", "Unhealthy (151-200)"],
               "range": ["#fddbc7", "#f4a582", "#d6604d", "#67001f"]
             },
             "legend": {
+              "orient": "none",
+              "legendX": 20,
+              "legendY": 300,
+              "direction": "vertical",
+              "padding": 8,
+              "cornerRadius": 8,
+              "fillColor": "white",
+              "strokeColor": "#000000",
               "labelFontSize": 13,
               "titleFontSize": 15,
-              "orient": "right",
-              "offset": 12,
-              "labelLimit": 320,
+              "titleLimit": 1000,
+              "labelLimit": 600,
               "symbolType": "square",
               "symbolSize": 120
             }
           },
           "value": "#8f8f8f"
         },
-        "opacity": {
-          "condition": {"param": "countries_highlight", "value": 0.6},
-          "value": 0.1
-        },
+        "opacity": { "condition": { "param": "countries_highlight", "value": 0.6 }, "value": 0.1 },
         "stroke": {"value": "#000000"},
         "strokeWidth": {"value": 0.4},
         "tooltip": [
@@ -118,7 +114,6 @@
         "opacity": {"value": 0.8}
       }
     },
-
     {
       "name": "annotationText",
       "data": { "values": [
@@ -130,13 +125,12 @@
         "align": "left",
         "baseline": "top",
         "lineBreak": "\n",
-        "color": "black"          
+        "color": "black"
       },
       "encoding": {
-        "x": { "value": 780 }, 
-        "y": { "value": 400 },          
-        "text": { "field": "note" },
-        "color": { "value": "black" }   
+        "x": { "value": 820 },
+        "y": { "value": 400 },
+        "text": { "field": "note" }
       }
     }
   ]
