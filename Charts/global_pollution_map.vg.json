@@ -68,24 +68,27 @@
             "type": "nominal",
             "title": "Air Pollution Level (Click to filter)",
             "scale": {
-              "domain": ["Good (0-50)", "Moderate (51-100)", "Unhealthy-Sensitive People (101-150)", "Unhealthy (151-200)"],
-              "range": ["#fddbc7", "#f4a582", "#d6604d", "#67001f"]
+              "domain": [
+                "Good (0-50)",
+                "Moderate (51-100)",
+                "Unhealthy-Sensitive People (101-150)",
+                "Unhealthy (151-200)"
+              ],
+              "range": ["#fdcc8a", "#fc8d59", "#e34a33", "#b30000"]
             },
             "legend": {
               "orient": "none",
               "legendX": 20,
               "legendY": 300,
-              "direction": "vertical",
               "padding": 8,
               "cornerRadius": 8,
               "fillColor": "white",
               "strokeColor": "#000000",
-              "labelFontSize": 13,
-              "titleFontSize": 15,
+              "labelFontSize": 12,
+              "titleFontSize": 14,
               "titleLimit": 1000,
               "labelLimit": 600,
-              "symbolType": "square",
-              "symbolSize": 120
+              "symbolType": "square"
             }
           },
           "value": "#8f8f8f"
@@ -117,7 +120,7 @@
     {
       "name": "annotationText",
       "data": { "values": [
-        { "note": "Malaysia ranks 53rd in terms \nof worst air quality compared to \nthe other 176 countries." }
+        { "note": "𝗠𝗮𝗹𝗮𝘆𝘀𝗶𝗮 ranks 𝟱𝟯𝗿𝗱 in terms \nof 𝘄𝗼𝗿𝘀𝘁 𝗮𝗶𝗿 𝗾𝘂𝗮𝗹𝗶𝘁𝘆 compared to \nthe 𝗼𝘁𝗵𝗲𝗿 𝟭𝟳𝟲 𝗰𝗼𝘂𝗻𝘁𝗿𝗶𝗲𝘀." }
       ]},
       "mark": {
         "type": "text",
@@ -130,6 +133,25 @@
       "encoding": {
         "x": { "value": 820 },
         "y": { "value": 400 },
+        "text": { "field": "note" }
+      }
+    },
+    {
+      "name": "annotationText2",
+      "data": { "values": [
+        { "note": "𝗠𝗮𝘂𝗿𝗶𝘁𝗮𝗻𝗶𝗮, 𝗣𝗮𝗸𝗶𝘀𝘁𝗮𝗻, and \nthe 𝗨𝗔𝗘 rank among the \n𝘄𝗼𝗿𝘀𝘁 𝗮𝗶𝗿 𝗾𝘂𝗮𝗹𝗶𝘁𝘆 globally."}
+      ]},
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "\n",
+        "color": "black"
+      },
+      "encoding": {
+        "x": { "value": 380 },
+        "y": { "value": 200 },
         "text": { "field": "note" }
       }
     }

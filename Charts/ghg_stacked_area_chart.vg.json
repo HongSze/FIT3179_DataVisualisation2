@@ -1,17 +1,18 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-  "offset": 8,
-  "fontSize": 19,        
-  "fontWeight": "bold",    
-  "anchor": "middle"       
+    "offset": 8,
+    "fontSize": 19,
+    "fontWeight": "bold",
+    "anchor": "middle"
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/ghg_emissions.csv" },
 
   "width": 990,
   "height": 500,
   "background": "#d5e6eb",
-  "padding": { "top": 5, "right": 0, "bottom": 5, "left": 0 },
+  "padding": { "top": 10, "right": 10, "bottom": 0, "left": 10 },
+
   "transform": [
     { "calculate": "year(toDate(datum.date))", "as": "year_num" },
     { "filter": "datum.source != 'total' && datum.source != 'net'" },
@@ -34,9 +35,7 @@
     },
     { "calculate": "datum.short", "as": "source_short" },
     { "calculate": "datum.full",  "as": "source_full" },
-
     { "filter": "datum.year_num <= 2019" },
-
     {
       "joinaggregate": [
         { "op": "sum", "field": "emissions", "as": "total_sum_sector" }
@@ -46,54 +45,73 @@
     { "calculate": "-datum.total_sum_sector", "as": "stack_rank" }
   ],
 
-  "mark": { "type": "area", "interpolate": "monotone" },
-
-  "encoding": {
-    "x": {
-      "field": "year_num",
-      "type": "quantitative",
-      "title": "Year",
-      "scale": { "domain": [2014, 2019], "nice": false },
-      "axis": { "tickMinStep": 1, "format": "d", "labelOverlap": "greedy" }
-    },
-
-    "y": {
-      "field": "emissions",
-      "type": "quantitative",
-      "stack": "zero",
-      "title": "Emissions (Gg CO\u2082e)",
-      "axis": { "format": ",.0f" }
-    },
-
-    "order": { "field": "stack_rank", "type": "quantitative" },
-
-    "color": {
-      "field": "source_short",
-      "type": "nominal",
-      "title": "Sector",
-      "scale": {
-        "domain": [
-          "Energy",
-          "Industrial Processes",
-          "Agriculture",
-          "Waste",
-          "Land use & forestry"
-        ],  
-        "range": ["#1f77b4", "#9467bd", "#2ca02c", "#ff7f0e", "#8c564b"]
-      },
-      "legend": {
-        "labelFontSize": 13,
-        "titleFontSize": 15,
-        "symbolSize": 220,
-        "symbolType": "square",
-        "padding": 10
+  "layer": [
+    {
+      "mark": { "type": "area", "interpolate": "monotone" },
+      "encoding": {
+        "x": {
+          "field": "year_num",
+          "type": "quantitative",
+          "title": "Year",
+          "scale": { "domain": [2014, 2019], "nice": false },
+          "axis": { "tickMinStep": 1, "format": "d", "labelOverlap": "greedy" }
+        },
+        "y": {
+          "field": "emissions",
+          "type": "quantitative",
+          "stack": "zero",
+          "title": "Emissions (Gg CO\u2082e)",
+          "axis": { "format": ",.0f" }
+        },
+        "order": { "field": "stack_rank", "type": "quantitative" },
+        "color": {
+          "field": "source_short",
+          "type": "nominal",
+          "title": "Sector",
+          "scale": {
+            "domain": [
+              "Energy",
+              "Industrial Processes",
+              "Agriculture",
+              "Waste",
+              "Land use & forestry"
+            ],
+            "range": ["#56B4E9", "#CC79A7", "#F0E442", "#0072B2", "#009E73"]
+          },
+          "legend": {
+            "labelFontSize": 13,
+            "titleFontSize": 15,
+            "symbolSize": 220,
+            "symbolType": "square",
+            "padding": 10
+          }
+        },
+        "tooltip": [
+          { "field": "year_num", "type": "quantitative", "title": "Year", "format": "d" },
+          { "field": "source_full", "title": "Sector" },
+          { "field": "emissions", "type": "quantitative", "title": "Emissions (Gg CO\u2082e)", "format": ",.0f" }
+        ]
       }
     },
 
-    "tooltip": [
-      { "field": "year_num", "type": "quantitative", "title": "Year", "format": "d" },
-      { "field": "source_full", "title": "Sector" },
-      { "field": "emissions", "type": "quantitative", "title": "Emissions (Gg CO\u2082e)", "format": ",.0f" }
-    ]
-  }
+    {
+      "name": "annotationText",
+      "data": { "values": [
+        { "note": "𝗟𝗮𝗻𝗱 𝘂𝘀𝗲 & 𝗳𝗼𝗿𝗲𝘀𝘁𝗿𝘆 is 𝗻𝗲𝗴𝗮𝘁𝗶𝘃𝗲\nbecause forests 𝗮𝗯𝘀𝗼𝗿𝗯 𝗖𝗢₂, making \nLand Use, Land-Use Change, and \nForestry a 𝗻𝗲𝘁 𝗰𝗮𝗿𝗯𝗼𝗻 𝘀𝗶𝗻𝗸." }
+      ]},
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "\n",
+        "color": "black"
+      },
+      "encoding": {
+        "x": { "value": 670 },
+        "y": { "value": 360 },
+        "text": { "field": "note" }
+      }
+    }
+  ]
 }

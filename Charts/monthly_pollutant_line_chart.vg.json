@@ -8,10 +8,10 @@
     "anchor": "middle"
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/air_pollution.csv" },
-  "width": 1090,
+  "width": 1070,
   "height": 450,
   "background": "#d5e6eb",
-  "padding": { "top": 0, "right": 5, "bottom": 5, "left": 0 },
+  "padding": { "top": 0, "right": 10, "bottom": 0, "left": 10 },
 
   "params": [
     {
@@ -33,17 +33,27 @@
       "title": "Pollutant",
       "scale": {
         "domain": ["PM 2.5","PM 10","CO","NO2","SO2","O3"],
-        "range":  ["#d62728","#ff7f0e","#1f77b4","#9467bd","#2ca02c","#17becf"]
+        "range": [
+          "#7C6BD0",  
+          "#FF9F1C",
+          "#2F7EBC",  
+          "#CC79A7", 
+          "#5C677D", 
+          "#00BFC4" 
+        ]
       },
       "legend": {
         "labelFontSize": 13,
         "titleFontSize": 15,
-        "symbolSize": 100
+        "symbolSize": 110,
+        "symbolStroke": "#ffffff",
+        "symbolStrokeWidth": 0.8
       }
     }
   },
 
   "layer": [
+    
     {
       "transform": [
         { "filter": "datum.pollutant == 'PM 2.5' || datum.pollutant == 'PM 10'" },
@@ -52,12 +62,18 @@
         { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
         { "filter": "pollutantSelect == 'All' || datum.pollutant == pollutantSelect" }
       ],
-      "mark": { "type": "line", "point": true, "strokeWidth": 2, "interpolate": "monotone" },
+      "mark": {
+        "type": "line",
+        "strokeDash": [4,3],
+        "strokeWidth": 2,
+        "interpolate": "monotone",
+        "point": { "filled": true, "size": 55, "stroke": "white", "strokeWidth": 1 }
+      },
       "encoding": {
         "y": {
           "field": "conc_num",
           "type": "quantitative",
-          "title": "Concentration (µg/m³)",
+          "title": "Concentration (µg/m³) - dashed",
           "axis": { "grid": true }
         },
         "tooltip": [
@@ -67,6 +83,8 @@
         ]
       }
     },
+
+   
     {
       "transform": [
         { "filter": "datum.pollutant == 'CO' || datum.pollutant == 'NO2' || datum.pollutant == 'SO2' || datum.pollutant == 'O3'" },
@@ -75,12 +93,17 @@
         { "filter": "toDate(datum.date) >= toDate('2018-01-01')" },
         { "filter": "pollutantSelect == 'All' || datum.pollutant == pollutantSelect" }
       ],
-      "mark": { "type": "line", "point": true, "strokeDash": [4,3], "strokeWidth": 2, "interpolate": "monotone" },
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2,
+        "interpolate": "monotone",
+        "point": { "filled": true, "size": 55, "stroke": "white", "strokeWidth": 1 }
+      },
       "encoding": {
         "y": {
           "field": "conc_num",
           "type": "quantitative",
-          "title": "Concentration (ppm)",
+          "title": "Concentration (ppm) - solid",
           "axis": { "orient": "right", "grid": false }
         },
         "tooltip": [
@@ -90,10 +113,11 @@
         ]
       }
     },
+
     {
       "name": "annotationText",
       "data": { "values": [
-        { "note": "In September 2019, transboundary haze from \nIndonesian forest and peat fires blanketed Malaysia, \nspiking both PM and gaseous pollutants." }
+        { "note": "In 𝗦𝗲𝗽𝘁𝗲𝗺𝗯𝗲𝗿 𝟮𝟬𝟭𝟵, 𝘁𝗿𝗮𝗻𝘀𝗯𝗼𝘂𝗻𝗱𝗮𝗿𝘆 𝗵𝗮𝘇𝗲 from \n𝗜𝗻𝗱𝗼𝗻𝗲𝘀𝗶𝗮𝗻 𝗳𝗼𝗿𝗲𝘀𝘁 and 𝗽𝗲𝗮𝘁 𝗳𝗶𝗿𝗲𝘀 blanketed Malaysia, \n𝘀𝗽𝗶𝗸𝗶𝗻𝗴 both 𝗣𝗠 and 𝗴𝗮𝘀𝗲𝗼𝘂𝘀 𝗽𝗼𝗹𝗹𝘂𝘁𝗮𝗻𝘁𝘀."}
       ]},
       "mark": {
         "type": "text",

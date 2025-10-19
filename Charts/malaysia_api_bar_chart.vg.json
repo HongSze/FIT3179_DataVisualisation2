@@ -11,27 +11,53 @@
     "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/AirQuality_Malaysia_cleaned.csv",
     "format": { "type": "csv" }
   },
-  "width": 770,
+  "width": 750,
   "height": 500,
   "background": "#d5e6eb",
-  "padding": { "top": 5, "right": 0, "bottom": 5, "left": 0 },
+  "padding": { "top": 5, "right": 0, "bottom": 0, "left": 10 },
+
+  "transform": [
+    { "calculate": "toNumber(datum['2023'])", "as": "api_2023" },
+    { "filter": "isValid(datum.api_2023)" },
+    { "filter": "!datum.Country || lower(datum.Country) == 'malaysia'" },
+    { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "api_2023", "order": "descending" }] },
+    { "filter": "datum.r <= 20" }
+  ],
 
   "layer": [
     {
-      "transform": [
-        { "calculate": "toNumber(datum['2023'])", "as": "api_2023" },
-        { "filter": "isValid(datum.api_2023)" },
-        { "filter": "!datum.Country || lower(datum.Country) == 'malaysia'" },
-        { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "api_2023", "order": "descending" }] },
-        { "filter": "datum.r <= 20" }
-      ],
-      "mark": { "type": "bar", "color": "#11aedd" },
+      "mark": { "type": "bar" },
       "encoding": {
-        "y": { "field": "City", "type": "nominal", "title": null, "sort": "-x" },
+        "y": {
+          "field": "City",
+          "type": "nominal",
+          "title": null,
+          "sort": { "field": "api_2023", "order": "descending" }
+        },
         "x": { "field": "api_2023", "type": "quantitative", "title": "Air Pollution Index" },
+
+    
+        "color": {
+          "condition": { "test": "datum.r <= 3", "value": "#7C6BD0" },   
+          "value": "#D8CEF6"                                            
+        },
+        "opacity": {
+          "condition": { "test": "datum.r <= 3", "value": 1 },
+          "value": 1
+        },
+        "stroke": {
+          "condition": { "test": "datum.r <= 3", "value": "#4B3399" },
+          "value": null
+        },
+        "strokeWidth": {
+          "condition": { "test": "datum.r <= 3", "value": 1.2 },
+          "value": 0
+        },
+
         "tooltip": [
           { "field": "City", "title": "District" },
-          { "field": "api_2023", "type": "quantitative", "format": ".1f", "title": "API (2023)" }
+          { "field": "api_2023", "type": "quantitative", "format": ".1f", "title": "API (2023)" },
+          { "field": "r", "type": "quantitative", "title": "Rank" }
         ]
       }
     },
@@ -41,7 +67,7 @@
       "data": {
         "values": [
           {
-            "note": "Klang ranks highest API among \nother districts as it is a major \nindustrial area in Malaysia."
+            "note": "𝗞𝗹𝗮𝗻𝗴 ranks 𝗵𝗶𝗴𝗵𝗲𝘀𝘁 𝗔𝗣𝗜 among \nother districts as it is a 𝗺𝗮𝗷𝗼𝗿 \n𝗶𝗻𝗱𝘂𝘀𝘁𝗿𝗶𝗮𝗹 area in Malaysia."
           }
         ]
       },
@@ -51,13 +77,12 @@
         "align": "right",
         "baseline": "bottom",
         "lineBreak": "\n",
-        "color": "black"
+        "color": "#333333"
       },
       "encoding": {
-        "x": { "value": 720 },
+        "x": { "value": 700 },
         "y": { "value": 375 },
-        "text": { "field": "note" },
-        "color": { "value": "black" }
+        "text": { "field": "note" }
       }
     }
   ]

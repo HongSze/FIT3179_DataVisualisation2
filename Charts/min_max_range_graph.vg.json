@@ -1,14 +1,29 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": { 
-    "text": "Annual Min & Max Air Pollutant Index (1998–2020)",
+    "text": "Annual min & max Air Pollutant Index",
     "fontSize": 15.5,
     "anchor": "middle"
   },
   "background": "#d5e6eb",
   "autosize": {"type": "fit", "contains": "padding", "resize": true},
   "data": {"url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/1998%202020%20Annual%20Maximum%20and%20Minimum%20Air%20Pollutant.csv", "format": {"type": "csv"}},
-  "config": {"view": {"stroke": null}},
+  "config": {
+    "view": { "stroke": null },
+
+    "area": {
+      "fill": "#E6D9FF",    
+      "opacity": 1,
+      "stroke": "#170b56",   
+      "strokeWidth": 1
+    },
+
+
+    "rule": {
+      "color": "#120942"     
+    }
+  }
+  ,
   "transform": [
     {"calculate": "trim(datum['Selected Stations'])", "as": "station"},
     {"calculate": "toNumber(datum.Maximum)", "as": "max_v"},
