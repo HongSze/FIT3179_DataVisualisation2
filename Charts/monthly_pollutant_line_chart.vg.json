@@ -8,7 +8,7 @@
     "anchor": "middle"
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/air_pollution.csv" },
-  "width": 1070,
+  "width": 870,
   "height": 450,
   "background": "#d5e6eb",
   "padding": { "top": 0, "right": 10, "bottom": 0, "left": 10 },
@@ -128,7 +128,7 @@
         "color": "black"
       },
       "encoding": {
-        "x": { "value": 430 },
+        "x": { "value": 330 },
         "y": { "value": 48 },
         "text": { "field": "note" },
         "color": { "value": "black" }

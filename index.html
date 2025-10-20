@@ -20,15 +20,62 @@
     </div>
     <div id="map" class="viz"></div>
 
-    <div class="double-rule">
-      <span style="font-size:25px">How does air pollution change over time?</span>
-    </div>
-    <div id="gas" class="viz"></div>
+    <!-- 2) Pollution over time -->
+    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0;">
+      <tr>
+        <!-- FULL-WIDTH TITLE ROW so both columns start below the line -->
+        <td colspan="2" style="padding:0;">
+          <div class="double-rule">
+            <span style="font-size:25px">How does air pollution change over time?</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <!-- LEFT: chart -->
+        <td style="vertical-align:top; width:70%; padding-top:8px;">
+          <div id="gas" class="viz"></div>
+        </td>
 
-    <div class="double-rule">
-      <span style="font-size:25px">Which sectors contribute most to greenhouse gas emissions?</span>
-    </div>
-    <div id="ghg" class="viz"></div>
+        <!-- RIGHT: notes (now below the line too) -->
+        <td style="vertical-align:top; width:30%; max-width:360px; padding-left:16px; padding-top:8px; border-left:2px solid rgba(0,0,0,.1);">
+          <h4 style="margin:0 0 8px 0; font-size:16px;">Interpretation tips</h4>
+          <ul style="margin:0 0 8px 18px; padding:0; line-height:1.5;">
+            <li>Look for post-policy trend breaks (bans, fuel shifts).</li>
+            <li>Seasonality (monsoon/dry) can shift PM₂.₅/NO₂.</li>
+            <li>Compare year-to-year peaks for extreme events.</li>
+          </ul>
+          <p style="margin:8px 0 0 0; font-size:14px; opacity:.8;">
+            Sept 2019 haze from Indonesian peat fires spiked PM &amp; gases.
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 3) GHG by sector -->
+    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0;">
+      <tr>
+        <td colspan="2" style="padding:0;">
+          <div class="double-rule">
+            <span style="font-size:25px">Which sectors contribute most to greenhouse gas emissions?</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top; width:70%; padding-top:8px;">
+          <div id="ghg" class="viz"></div>
+        </td>
+        <td style="vertical-align:top; width:30%; max-width:360px; padding-left:16px; padding-top:8px; border-left:2px solid rgba(0,0,0,.1);">
+          <h4 style="margin:0 0 8px 0; font-size:16px;">Key takeaways</h4>
+          <ul style="margin:0 0 8px 18px; padding:0; line-height:1.5;">
+            <li>Energy &amp; transport often dominate direct emissions.</li>
+            <li>Land-use change varies widely by country.</li>
+            <li>Separate process emissions from energy-use emissions.</li>
+          </ul>
+          <p style="margin:8px 0 0 0; font-size:14px; opacity:.8;">Tip: hover legend to isolate sectors.</p>
+        </td>
+      </tr>
+    </table>
+
 
     <div class="double-rule">
       <span style="font-size:25px">Local Air Pollutions Views</span>

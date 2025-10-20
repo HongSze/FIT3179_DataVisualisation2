@@ -8,7 +8,7 @@
   },
   "data": { "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/ghg_emissions.csv" },
 
-  "width": 990,
+  "width": 790,
   "height": 500,
   "background": "#d5e6eb",
   "padding": { "top": 10, "right": 10, "bottom": 0, "left": 10 },
