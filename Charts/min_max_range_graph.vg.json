@@ -252,13 +252,15 @@
           "width": 120,
           "height": 70,
           "data": { "values": [
-            { "note": "𝗠𝗶𝗿𝗶 𝐬𝐩𝐢𝐤𝐞𝐬 set chart \n𝐬𝐜𝐚𝐥𝐞, while most stations \nstay <𝟮𝟬𝟬." }
+            { "note": "𝗠𝗶𝗿𝗶 𝐬𝐩𝐢𝐤𝐞𝐬 set chart \n𝐬𝐜𝐚𝐥𝐞, while most stations \nstay 𝗯𝗲𝗹𝗼𝘄 𝟮𝟬𝟬." }
           ]},
           "mark": {
             "type": "text",
             "align": "center",
             "baseline": "middle",
             "fontSize": 13,
+            "font": "Arial, sans-serif",
+            "lineHeight": 15,  
             "color": "#333333",
             "lineBreak": "\n"
           },
@@ -269,8 +271,6 @@
           },
           "title": ""
         }
-
-
       ]
     }
   ],

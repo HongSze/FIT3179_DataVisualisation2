@@ -12,7 +12,7 @@
     "format": { "type": "csv" }
   },
   "width": 750,
-  "height": 500,
+  "height": 525,
   "background": "#d5e6eb",
   "padding": { "top": 5, "right": 0, "bottom": 0, "left": 10 },
 
@@ -40,10 +40,6 @@
         "color": {
           "condition": { "test": "datum.r <= 3", "value": "#7C6BD0" },   
           "value": "#D8CEF6"                                            
-        },
-        "opacity": {
-          "condition": { "test": "datum.r <= 3", "value": 1 },
-          "value": 1
         },
         "stroke": {
           "condition": { "test": "datum.r <= 3", "value": "#4B3399" },
@@ -74,6 +70,8 @@
       "mark": {
         "type": "text",
         "fontSize": 13,
+        "font": "Arial, sans-serif",
+        "lineHeight": 15,  
         "align": "right",
         "baseline": "bottom",
         "lineBreak": "\n",

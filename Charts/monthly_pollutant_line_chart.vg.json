@@ -122,6 +122,8 @@
       "mark": {
         "type": "text",
         "fontSize": 13,
+        "font": "Arial, sans-serif",
+        "lineHeight": 15,  
         "align": "left",
         "baseline": "top",
         "lineBreak": "\n",
