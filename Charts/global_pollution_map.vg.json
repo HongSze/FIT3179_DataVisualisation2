@@ -46,6 +46,17 @@
         },
         {"calculate": "toNumber(datum['Mean Overall AQI'])", "as": "aqi_mean"},
         {
+          "window": [{"op": "rank", "as": "rank_worst"}],
+          "sort": [{"field": "aqi_mean", "order": "descending"}]
+        },
+        {
+          "joinaggregate": [{"op": "count", "field": "aqi_mean", "as": "n_with_aqi"}]
+        },
+        {
+          "calculate": "isValid(datum.aqi_mean) ? format(datum.rank_worst, 'd') + ' of ' + format(datum.n_with_aqi, 'd') : '—'",
+          "as": "rank_str"
+        },
+        {
           "calculate": "isValid(datum.aqi_mean) ? (datum.aqi_mean <= 50 ? 'Good (0-50)' : datum.aqi_mean <= 100 ? 'Moderate (51-100)' : datum.aqi_mean <= 150 ? 'Unhealthy-Sensitive People (101-150)' : 'Unhealthy (151-200)') : null",
           "as": "aqi_level_label"
         },
@@ -99,7 +110,8 @@
         "tooltip": [
           {"field": "ADMIN", "title": "Country"},
           {"field": "aqi_mean_str", "title": "Mean AQI"},
-          {"field": "aqi_level_str", "title": "Level"}
+          {"field": "aqi_level_str", "title": "Level"},
+          {"field": "rank_str", "title": "Rank (worst = 1)"}
         ]
       }
     },
@@ -120,7 +132,7 @@
     {
       "name": "annotationText",
       "data": { "values": [
-        { "note": "𝗠𝗮𝗹𝗮𝘆𝘀𝗶𝗮 ranks 𝟱𝟯𝗿𝗱 in terms \nof 𝘄𝗼𝗿𝘀𝘁 𝗮𝗶𝗿 𝗾𝘂𝗮𝗹𝗶𝘁𝘆 compared to \nthe 𝗼𝘁𝗵𝗲𝗿 𝟭𝟳𝟲 𝗰𝗼𝘂𝗻𝘁𝗿𝗶𝗲𝘀." }
+        { "note": "𝗠𝗮𝗹𝗮𝘆𝘀𝗶𝗮 ranks 𝟱𝟭𝘀𝘁 in terms \nof 𝘄𝗼𝗿𝘀𝘁 𝗮𝗶𝗿 𝗾𝘂𝗮𝗹𝗶𝘁𝘆 compared to \nthe 𝗼𝘁𝗵𝗲𝗿 𝟮𝟰𝟭 𝗰𝗼𝘂𝗻𝘁𝗿𝗶𝗲𝘀." }
       ]},
       "mark": {
         "type": "text",
@@ -147,7 +159,7 @@
         "align": "left",
         "baseline": "top",
         "lineBreak": "\n",
-        "color": "333333"
+        "color": "#333333"
       },
       "encoding": {
         "x": { "value": 400 },
