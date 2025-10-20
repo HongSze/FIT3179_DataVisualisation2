@@ -19,62 +19,70 @@
       <span style="font-size:25px">Global Air Quality Index levels in 2022</span>
     </div>
     <div id="map" class="viz"></div>
-
+   
     <!-- 2) Pollution over time -->
-    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0;">
-      <tr>
-        <!-- FULL-WIDTH TITLE ROW so both columns start below the line -->
-        <td colspan="2" style="padding:0;">
-          <div class="double-rule">
-            <span style="font-size:25px">How does air pollution change over time?</span>
-          </div>
-        </td>
-      </tr>
+    <div class="double-rule">
+      <span style="font-size:25px">How does air pollution change over time?</span>
+    </div>
+    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0 24px 0;">
       <tr>
         <!-- LEFT: chart -->
-        <td style="vertical-align:top; width:70%; padding-top:8px;">
+        <td style="vertical-align:top; width:70%;">
           <div id="gas" class="viz"></div>
         </td>
 
-        <!-- RIGHT: notes (now below the line too) -->
-        <td style="vertical-align:top; width:30%; max-width:360px; padding-left:16px; padding-top:8px; border-left:2px solid rgba(0,0,0,.1);">
-          <h4 style="margin:0 0 8px 0; font-size:16px;">Interpretation tips</h4>
-          <ul style="margin:0 0 8px 18px; padding:0; line-height:1.5;">
-            <li>Look for post-policy trend breaks (bans, fuel shifts).</li>
-            <li>Seasonality (monsoon/dry) can shift PM₂.₅/NO₂.</li>
-            <li>Compare year-to-year peaks for extreme events.</li>
-          </ul>
-          <p style="margin:8px 0 0 0; font-size:14px; opacity:.8;">
-            Sept 2019 haze from Indonesian peat fires spiked PM &amp; gases.
-          </p>
+        <!-- RIGHT: paragraph, vertically centered -->
+        <td style="vertical-align:middle; width:30%; max-width:360px; padding-left:16px; border-left:2px solid rgba(0,0,0,.1);">
+          <div style="display:flex; align-items:center; min-height:450px;">
+            <p style="margin:0; font-size:14px; line-height:1.6;">
+              Dashed lines show particulate matter
+              (<span style="color:#7C6BD0; font-weight:700;">PM₂.₅</span> /
+              <span style="color:#FF9F1C; font-weight:700;">PM₁₀</span>) measured in
+              <strong>µg/m³</strong> on the <strong>left</strong> axis, while solid lines show gases
+              (<span style="color:#2F7EBC; font-weight:700;">CO</span>,
+              <span style="color:#CC79A7; font-weight:700;">NO₂</span>,
+              <span style="color:#00BFC4; font-weight:700;">O₃</span>,
+              <span style="color:#5C677D; font-weight:700;">SO₂</span>) measured in <strong>ppm</strong> on the
+              <strong>right</strong> axis. PM varies more with weather and burning events, while gases behave
+              differently: <span style="color:#CC79A7; font-weight:700;">NO₂</span> tracks traffic and dips during
+              mobility slowdowns, <span style="color:#2F7EBC; font-weight:700;">CO</span> stays low and stable, and
+              <span style="color:#00BFC4; font-weight:700;">O₃</span> is formed photochemically, tending to peak in
+              sunnier, drier periods rather than during haze.
+            </p>
+          </div>
         </td>
       </tr>
     </table>
 
     <!-- 3) GHG by sector -->
-    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0;">
+    <div class="double-rule">
+      <span style="font-size:25px">Which sectors contribute most to greenhouse gas emissions?</span>
+    </div>
+    <table role="presentation" style="width:100%; border-collapse:separate; border-spacing:16px 0; margin:20px 0 24px 0;">
       <tr>
-        <td colspan="2" style="padding:0;">
-          <div class="double-rule">
-            <span style="font-size:25px">Which sectors contribute most to greenhouse gas emissions?</span>
+        <!-- LEFT: paragraph, vertically centered -->
+        <td style="vertical-align:middle; width:30%; max-width:360px; padding-right:16px; border-right:2px solid rgba(0,0,0,.1);">
+          <div style="display:flex; align-items:center; min-height:500px;">
+            <p style="margin:0; font-size:14px; line-height:1.6;">
+              Malaysia’s emissions are led by the 
+              <span style="color:#56B4E9; font-weight:700;">Energy</span> sector throughout the period, with 
+              <span style="color:#0072B2; font-weight:700;">Waste</span> a distant second and 
+              <span style="color:#F0E442; font-weight:700;">Agriculture</span>/<span style="color:#CC79A7; font-weight:700;">Industrial Processes</span>
+              contributing smaller, steadier shares. 
+              <span style="color:#009E73; font-weight:700;">Land Use and Forestry (LULUCF)</span> is negative—acting as a carbon sink that offsets part of the total—so changes in forest cover can noticeably shift the net trajectory even when sectoral emissions are fairly stable.
+            </p>
           </div>
         </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; width:70%; padding-top:8px;">
+
+        <!-- RIGHT: chart -->
+        <td style="vertical-align:top; width:70%;">
           <div id="ghg" class="viz"></div>
-        </td>
-        <td style="vertical-align:top; width:30%; max-width:360px; padding-left:16px; padding-top:8px; border-left:2px solid rgba(0,0,0,.1);">
-          <h4 style="margin:0 0 8px 0; font-size:16px;">Key takeaways</h4>
-          <ul style="margin:0 0 8px 18px; padding:0; line-height:1.5;">
-            <li>Energy &amp; transport often dominate direct emissions.</li>
-            <li>Land-use change varies widely by country.</li>
-            <li>Separate process emissions from energy-use emissions.</li>
-          </ul>
-          <p style="margin:8px 0 0 0; font-size:14px; opacity:.8;">Tip: hover legend to isolate sectors.</p>
         </td>
       </tr>
     </table>
+
+
+
 
 
     <div class="double-rule">
