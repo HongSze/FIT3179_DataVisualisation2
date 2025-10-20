@@ -7,23 +7,15 @@
   },
   "background": "#d5e6eb",
   "autosize": {"type": "fit", "contains": "padding", "resize": true},
-  "data": {"url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/1998%202020%20Annual%20Maximum%20and%20Minimum%20Air%20Pollutant.csv", "format": {"type": "csv"}},
+  "data": {
+    "url": "https://raw.githubusercontent.com/HongSze/FIT3179_DataVisualisation2/refs/heads/main/Dataset/1998%202020%20Annual%20Maximum%20and%20Minimum%20Air%20Pollutant.csv",
+    "format": {"type": "csv"}
+  },
   "config": {
     "view": { "stroke": null },
-
-    "area": {
-      "fill": "#E6D9FF",    
-      "opacity": 1,
-      "stroke": "#170b56",   
-      "strokeWidth": 1
-    },
-
-
-    "rule": {
-      "color": "#120942"     
-    }
-  }
-  ,
+    "area": { "fill": "#E6D9FF", "opacity": 1, "stroke": "#170b56", "strokeWidth": 1 },
+    "rule": { "color": "#120942" }
+  },
   "transform": [
     {"calculate": "trim(datum['Selected Stations'])", "as": "station"},
     {"calculate": "toNumber(datum.Maximum)", "as": "max_v"},
@@ -35,16 +27,15 @@
     {
       "hconcat": [
         {
-          "width": 120,
-          "height": 70,
-          "title": { "text": "Bandaraya Melaka, Melaka", "fontSize": 12, "offset": 4 },
+          "width": 120, "height": 70,
+          "title": {"text": "Bandaraya Melaka, Melaka", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Bandaraya Melaka, Melaka'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -52,7 +43,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -67,14 +58,14 @@
         },
         {
           "width": 120, "height": 70,
-          "title": { "text": "Cheras, Kuala Lumpur", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Cheras, Kuala Lumpur", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Cheras, Kuala Lumpur'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -82,7 +73,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -101,14 +92,14 @@
       "hconcat": [
         {
           "width": 120, "height": 70,
-          "title": { "text": "Kota Kinabalu, Sabah", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Kota Kinabalu, Sabah", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Kota Kinabalu, Sabah'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -116,7 +107,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -131,14 +122,14 @@
         },
         {
           "width": 120, "height": 70,
-          "title": { "text": "Kuching, Sarawak", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Kuching, Sarawak", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Kuching, Sarawak'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -146,7 +137,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -165,14 +156,14 @@
       "hconcat": [
         {
           "width": 120, "height": 70,
-          "title": { "text": "Larkin, Johor Bahru", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Larkin, Johor Bahru", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Larkin, Johor Bahru'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -180,7 +171,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -195,14 +186,14 @@
         },
         {
           "width": 120, "height": 70,
-          "title": { "text": "Miri, Sarawak", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Miri, Sarawak", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Miri, Sarawak'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -210,7 +201,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -229,14 +220,14 @@
       "hconcat": [
         {
           "width": 120, "height": 70,
-          "title": { "text": "Seberang Jaya, Pulau Pinang", "fontSize": 12, "offset": 4 },
+          "title": {"text": "Seberang Jaya, Pulau Pinang", "fontSize": 12, "offset": 4},
           "transform": [{"filter": "datum.station === 'Seberang Jaya, Pulau Pinang'"}],
           "layer": [
             {
               "mark": {"type": "area", "opacity": 0.25},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "title": "Year"},
-                "y": {"field": "min_v", "type": "quantitative", "title": "API"},
+                "y": {"field": "min_v", "type": "quantitative", "title": "API", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"}
               }
             },
@@ -244,7 +235,7 @@
               "mark": {"type": "rule", "strokeWidth": 1},
               "encoding": {
                 "x": {"field": "Year", "type": "temporal", "timeUnit": "year"},
-                "y": {"field": "min_v", "type": "quantitative"},
+                "y": {"field": "min_v", "type": "quantitative", "scale": {"domain": [0, 600]}},
                 "y2": {"field": "max_v"},
                 "tooltip": [
                   {"field": "station", "title": "Station"},
@@ -258,12 +249,30 @@
           ]
         },
         {
-          "width": 14, "height": 70,
-          "data": {"values": [{}]},
-          "mark": {"type": "rect", "opacity": 0},
+          "width": 120,
+          "height": 70,
+          "data": { "values": [
+            { "note": "𝗠𝗶𝗿𝗶 𝐬𝐩𝐢𝐤𝐞𝐬 set chart \n𝐬𝐜𝐚𝐥𝐞, while most stations \nstay <𝟮𝟬𝟬." }
+          ]},
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "fontSize": 13,
+            "color": "#333333",
+            "lineBreak": "\n"
+          },
+          "encoding": {
+            "x": { "value": 60 },
+            "y": { "value": 15 },
+            "text": { "field": "note" }
+          },
           "title": ""
         }
+
+
       ]
     }
-  ]
+  ],
+  "resolve": { "scale": { "y": "shared" } }
 }

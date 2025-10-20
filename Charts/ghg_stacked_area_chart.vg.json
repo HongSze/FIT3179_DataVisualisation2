@@ -105,7 +105,7 @@
         "align": "left",
         "baseline": "top",
         "lineBreak": "\n",
-        "color": "black"
+        "color": "#333333"
       },
       "encoding": {
         "x": { "value": 480 },

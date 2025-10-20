@@ -3,7 +3,7 @@ h1 {
   font-weight: 900;
   text-align: center;
   margin: 0 0 12px;
-  font-size: 40px;
+  font-size: 42px;
 }
 
 html, body {
@@ -14,10 +14,6 @@ html, body {
   color: #0f172a;
 }
 
-/* One source of truth for footer + title band color */
-:root { --footer-band: #b0d4df; }
-
-/* Page frame */
 .page {
   max-width: 1250px;
   margin: auto;
@@ -28,17 +24,15 @@ html, body {
 }
 
 .double-rule {
-  --line1: #0f172a;   /* top line color  */
-  --line2: #0f172a;   /* bottom line color */
-  --thick: 3px;       /* line thickness    */
-  --vspace: 10px;     /* space above/below the label */
+  --line1: #0f172a;   
+  --line2: #0f172a;   
+  --thick: 3px;       
+  --vspace: 10px;  
 
   position: relative;
   margin: 12px 0 18px;
   text-align: center;
-
-  /* >>> This is the key line: color ONLY the band between the rules <<< */
-  background: var(--footer-band);
+  background: #b0d4df;
 }
 
 .double-rule::before,
@@ -57,12 +51,8 @@ html, body {
   padding: var(--vspace) 16px;
   font-weight: 700;
   font-size: 18px;
-  background: var(--footer-band);         
+  background: #b0d4df;         
   border-radius: 8px;
-}
-
-@media (max-width: 600px) {
-  .double-rule span { font-size: 16px; padding: var(--vspace) 12px; }
 }
 
 .footer {
@@ -73,5 +63,5 @@ html, body {
   border-top: 1px solid #000;
   font-size: 12.5px;
   color: #334155;
-  background: var(--footer-band);  /* same color as the title band */
+  background: #b0d4df; 
 }
